@@ -63,6 +63,13 @@ Add a short interpretation (4 to 6 sentences) to this README or a `RESULT.md`:
 - Which queries did semantic search win, and what do those have in common?
 - One sentence on why a team would still keep the weaker system around (hint: the two systems win on different queries).
 
+### Findings & Interpretation
+
+1. **Overall Performance:** Semantic search is substantially better overall, achieving an MRR of 0.67 (compared to 0.30 for keyword search) and a perfect Recall@10 of 1.00 (compared to 0.60 for keyword search, which missed 4 out of 10 queries).
+2. **Keyword Search Wins:** Keyword search outperformed semantic search on `"redis or memcached for caching"` (rank 1 vs 2) and `"sql or nosql for a new product"` (rank 1 vs 3). These queries consist of concise, exact entity names and technical keywords that appear verbatim in the post titles.
+3. **Semantic Search Wins:** Semantic search won on the remaining 8 queries (e.g., `"my redis cache keeps showing old data"`, `"why did my query get slower after I added an index"`, and `"why does my redis memory keep climbing"`). These queries are natural language problem descriptions where user vocabulary diverges from the target document text (e.g., "old data" vs. "outdated values"), allowing semantic embeddings to bridge the vocabulary gap.
+4. **Keeping Keyword Search:** A team would still keep keyword search around—ideally combining both in a hybrid search pipeline with Reciprocal Rank Fusion—because keyword search provides deterministic, high-precision retrieval for exact keyword lookups, acronyms, and specific product names where semantic models can be noisy.
+
 ## Take it further (optional)
 
 If you have a working Postgres with the posts loaded and embeddings generated, swap `search-results.json` for real searches:
